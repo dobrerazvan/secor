@@ -56,6 +56,13 @@ java -ea -Dsecor_group=secor_backup \
   com.pinterest.secor.main.ConsumerMain
 ```
 
+#### Build Docker image
+```
+git checkout tags/0.27
+mvn -Pkafka-2.0.0 package
+docker build -t secor:0.27 .
+```
+
 Please take note that Secor **requires** JRE8 for it's runtime as source code uses JRE8 language features.
 JRE9 and JRE10 is *untested*.
 

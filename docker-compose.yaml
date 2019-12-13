@@ -11,8 +11,28 @@ services:
     environment:
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
       - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
-      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
     depends_on:
       - zookeeper
     ports:
       - 9092:9092
+  secor:
+    image: 'IMAGE'
+    environment:
+      - ZOOKEEPER_QUORUM=zookeeper:2181
+      - ZOOKEEPER_PATH=/
+      - KAFKA_SEED_BROKER_HOST=kafka
+      - SECOR_S3_BUCKET=ee-test-secor-2
+      - S3_PATH=secor
+      - AWS_ACCESS_KEY=
+      - AWS_SECRET_KEY=
+      - AWS_REGION=
+      - SECOR_GROUP=secor_group
+      - SECOR_MESSAGE_PARSER=com.pinterest.secor.parser.OffsetMessageParser
+      - DEBUG=true
+      - SECOR_MAX_FILE_BYTES=102400
+      - SECOR_MAX_FILE_SECONDS=10
+    depends_on:
+      - zookeeper
+      - kafka
